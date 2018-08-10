@@ -10,18 +10,28 @@ import {
   Text,
   View
 } from 'react-native';
-import { Login } from './components/Login';
+import { createStackNavigator } from 'react-navigation';
+import Login from './components/Login';
+import Home from './components/Home';
+import MenuItems from './components/MenuItems';
 
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Login />
+        <AppStackNavigator />
       </View>
     );
   }
 }
+
+const AppStackNavigator = createStackNavigator({
+  home: Home,
+  login: Login,
+  menuItems: MenuItems
+})
+
 
 const styles = StyleSheet.create({
   container: {
