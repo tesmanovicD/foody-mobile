@@ -12,9 +12,9 @@ class Home extends Component {
   }
   
 
-  openMenuItems = (id, name) => {
+  openMenuCategories = (id, name) => {
     this.props.navigation.navigate(
-      'menuItems',
+      'menuCategories',
       { id, name }
     )
   }
@@ -66,7 +66,7 @@ class Home extends Component {
 							avatar={{uri:el.avatar_url}}
 							key={key}
 							title={el.name}
-							onPress={() => this.openMenuItems(el.id, el.name)}
+							onPress={() => this.openMenuCategories(el.id, el.name)}
 						/>
 					))}
 				</List>

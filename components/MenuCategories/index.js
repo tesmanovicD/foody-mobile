@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo';
 
-import styles from './menuItems.style'
-import Item from './Item';
+import styles from './menuCategories.style'
+import Items from './Items';
 
-class MenuItems extends Component {
+class MenuCategories extends Component {
 
 	static navigationOptions = {
 		header: null
@@ -28,7 +28,7 @@ class MenuItems extends Component {
 		this.setState({ menuItems: [
 			{
 				id: 0,
-				name: 'Item 1',
+				name: 'Delux Thail Thag',
 				avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
 				price: 200
 			},
@@ -42,23 +42,23 @@ class MenuItems extends Component {
 	}
 
   render() {
-		const menuName = this.props.navigation.state.params.name
+		const categoryName = this.props.navigation.state.params.name
 
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
 					<Icon name="arrow-bold-left" size={30} color='#fff' onPress={this.goBack} />
-          <Text style={styles.headerTitle}>{ menuName }</Text>
+          <Text style={styles.headerTitle}>{ categoryName }</Text>
           <Text style={styles.headerBasketIcon}>
             <Icon name="shopping-basket" size={25} color="#fff" />
           </Text>
         </View>
 				<View>
-					{ this.state.menuItems.map(item => <Item key={item.id} item={item} />) }
+					{ this.state.menuItems.map(item => <Items key={item.id} item={item} />) }
 				</View>
       </View>
     )
   }
 }
 
-export default MenuItems
+export default MenuCategories

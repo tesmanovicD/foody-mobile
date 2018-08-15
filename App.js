@@ -13,7 +13,7 @@ import {
 import { createStackNavigator } from 'react-navigation';
 import Login from './components/Login';
 import Home from './components/Home';
-import MenuItems from './components/MenuItems';
+import MenuCategories from './components/MenuCategories';
 
 
 export default class App extends Component {
@@ -29,7 +29,7 @@ export default class App extends Component {
 const AppStackNavigator = createStackNavigator({
   home: Home,
   login: Login,
-  menuItems: MenuItems
+  menuCategories: MenuCategories
 })
 
 

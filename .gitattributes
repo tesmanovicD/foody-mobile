@@ -1,1 +1,3 @@
-*.pbxproj -text
+*.pbxproj -text 
+
+style/* linguist-vendored
