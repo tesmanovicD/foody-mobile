@@ -4,7 +4,12 @@ import styles from './login.style'
 
 class Login extends Component {
 	
+	static navigationOptions = {
+		header: null,
+	}
+
 	render() {
+		
 		const platformOffset = Platform.select({
 			ios: () => 0,
 			android: () => -150

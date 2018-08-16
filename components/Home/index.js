@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, TouchableOpacity } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/Entypo';
 
@@ -50,9 +50,9 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerMenuIcon}>
+          <TouchableOpacity style={styles.headerMenuIcon} onPress={() =>this.props.navigation.openDrawer()}>
             <Icon name="menu" size={30} color="#fff" />
-          </Text>
+          </TouchableOpacity>
           <Text style={styles.headerTitle}>Menu</Text>
           <Text style={styles.headerBasketIcon}>
             <Icon name="shopping-basket" size={25} color="#fff" />
