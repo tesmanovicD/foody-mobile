@@ -8,17 +8,26 @@ class Login extends Component {
 		header: null,
 	}
 
+	state = {
+		username: '',
+		password: ''
+	}
+
+	authenticateUser = () => {
+		console.warn(this.state)
+	}
+
 	render() {
-		
 		const platformOffset = Platform.select({
 			ios: () => 0,
 			android: () => -150
-	 	})()
+		})()
+		 
 		return (
 			<KeyboardAvoidingView behavior='padding' style={styles.container} keyboardVerticalOffset={platformOffset}>
 				<View style={styles.logoContainer}>
 					<Image style={styles.logo}
-						source={require('../../public/img/foody_logo.png')}
+						source={require('../../../public/img/foody_logo.png')}
 						/>
 				</View>
 
@@ -27,6 +36,7 @@ class Login extends Component {
 					<TextInput
 						style={styles.textInput}
 						keyboardType="email-address"
+						onChange={(username => this.setState({ username }))}
 						returnKeyType="next"
 						underlineColorAndroid={'transparent'}
 						placeholder="Enter your e-mail"
@@ -36,12 +46,13 @@ class Login extends Component {
 					<TextInput
 						style={styles.textInput}
 						secureTextEntry
+						onChange={(password) => this.setState({ password })}
 						underlineColorAndroid={'transparent'}
 						placeholder='Enter your password' 
 						placeholderTextColor='#000'
 						ref={'txtPassword'}/>
 
-					<TouchableOpacity style={styles.buttonContainer}>
+					<TouchableOpacity style={styles.buttonContainer} onPress={this.authenticateUser}>
 						<Text style={styles.buttonText}>SIGN IN</Text>
 					</TouchableOpacity>
 				</View>
