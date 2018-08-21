@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 import styles from './sidebar.style'
 
-export default class Sidebar extends Component {
+class Sidebar extends Component {
 
 	navigate = (route) => {
 		this.props.navigation.navigate(route)
@@ -11,14 +12,15 @@ export default class Sidebar extends Component {
   render() {
 		const { links } = styles 
     const routes = [
-        { title: "Home", route: "home" },
-        { title: "Login", route: "login" },
+        { title: "Home", route: "home" , display: this.props.loggedIn },
+        { title: "Login", route: "login", display: !this.props.loggedIn },
     ]
 
     return (
       <View>
         {
         	routes.map((r, key) => (
+            r.display &&
 						<TouchableOpacity onPress={() => this.navigate(r.route)} key={key} >
 							<Text style={links}>{r.title}</Text>
 						</TouchableOpacity>
@@ -28,3 +30,11 @@ export default class Sidebar extends Component {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.user.loggedIn
+  }
+}
+
+export default connect(mapStateToProps)(Sidebar)

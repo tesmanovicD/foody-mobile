@@ -19,13 +19,9 @@ import MenuCategories from './src/components/MenuCategories';
 import Sidebar from './src/components/Sidebar'
 import store from './src/modules/store';
 
-store.subscribe(() => console.warn(store.getState()))
-
- 
 
 export default class App extends Component {
   render() {
-    console.warn("test",store.getState('user').user.loggedIn)
     return (
       <Provider store={store}>
       <View style={styles.container}>
@@ -43,14 +39,14 @@ const AppStackNavigator = {
 }
 
 const AppDrawerNavigation = {
+  LoginViewStack: {
+    name: 'Login',
+    screen: StackNavigator(AppStackNavigator, { initialRouteName: 'login' })
+  },
   HomeViewStack: {
 		name: 'Home',
 		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'home' })
   },
-  LoginViewStack: {
-    name: 'Login',
-    screen: StackNavigator(AppStackNavigator, { initialRouteName: 'login' })
-  }
 }
 
 const RootNavigator =

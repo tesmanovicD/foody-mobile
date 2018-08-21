@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Text, TextInput, View, Image, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
 import styles from './login.style'
+import actions from '../../modules/actions'
 
 class Login extends Component {
 	
@@ -14,13 +16,19 @@ class Login extends Component {
 	}
 
 	authenticateUser = () => {
-		console.warn(this.state)
+		
+		const { username, password } =this.state;
+		this.props.dispatch(actions.user.authenticateUser(username, password))
+		.then(() => {
+			this.props.navigation.navigate('home')
+		})
+		.catch(err => console.warn(err.data))
 	}
 
 	render() {
 		const platformOffset = Platform.select({
 			ios: () => 0,
-			android: () => -150
+			android: () => -210
 		})()
 		 
 		return (
@@ -35,18 +43,17 @@ class Login extends Component {
 					<Text style={styles.title}>Account Informaion</Text>
 					<TextInput
 						style={styles.textInput}
-						keyboardType="email-address"
-						onChange={(username => this.setState({ username }))}
+						onChangeText={username => this.setState({ username })}
 						returnKeyType="next"
 						underlineColorAndroid={'transparent'}
-						placeholder="Enter your e-mail"
-						placeholderTextColor="#000" 
-						onSubmitEditing={() => this.refs.txtPassword.focus()}/>
+						placeholder="Enter your username"
+						placeholderTextColor="#000"
+						onSubmitEditing={() => this.refs.txtPassword.focus()}/> 
 
 					<TextInput
 						style={styles.textInput}
 						secureTextEntry
-						onChange={(password) => this.setState({ password })}
+						onChangeText={password => this.setState({ password })}
 						underlineColorAndroid={'transparent'}
 						placeholder='Enter your password' 
 						placeholderTextColor='#000'
@@ -61,4 +68,4 @@ class Login extends Component {
 	}
 }
 
-export default Login
+export default connect()(Login)
