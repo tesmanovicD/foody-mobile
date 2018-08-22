@@ -16,4 +16,9 @@ export default StyleSheet.create({
         fontSize: 18,
         fontWeight: "800"
     },
+    errMessage: {
+        alignSelf: 'center',
+        marginVertical: '50%',
+        fontSize: 22
+    }
 })

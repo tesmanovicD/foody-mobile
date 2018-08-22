@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Entypo'
+import { connect } from 'react-redux'
 
 import styles from './menuCategories.style'
-import Items from './Items';
+import Items from './Items'
+import actions from '../../modules/actions'
 
 class MenuCategories extends Component {
 
@@ -12,7 +14,7 @@ class MenuCategories extends Component {
 	}
 
 	state = {
-		menuItems: []
+		errMessage: ''
 	}
 
 	componentDidMount() {
@@ -24,21 +26,8 @@ class MenuCategories extends Component {
 	goBack = () => this.props.navigation.goBack()
 
 	getMenuItems = (id) => {
-		console.warn(id);
-		this.setState({ menuItems: [
-			{
-				id: 0,
-				name: 'Delux Thail Thag',
-				avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-				price: 200
-			},
-			{
-				id: 1,
-				name: 'Item 2',
-				avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-				price: 100
-			}
-		] })
+		this.props.dispatch(actions.food.getItemsFromCategory(id))
+		.catch(err => this.setState({ errMessage: err.data }))
 	}
 
   render() {
@@ -54,11 +43,22 @@ class MenuCategories extends Component {
           </Text>
         </View>
 				<View>
-					{ this.state.menuItems.map(item => <Items key={item.id} item={item} />) }
+					{
+						this.state.errMessage ?
+						<Text style={styles.errMessage}>{this.state.errMessage}</Text>
+						:
+						this.props.menuItems.map(item => <Items key={item.id} item={item} />)
+					}
 				</View>
       </View>
     )
   }
 }
 
-export default MenuCategories
+const mapStateToProps = (state) => {
+	return {
+		menuItems: state.food.filteredItems
+	}
+}
+
+export default connect(mapStateToProps)(MenuCategories)

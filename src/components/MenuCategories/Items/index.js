@@ -58,7 +58,7 @@ class Items extends Component {
                                 value={this.state.quantity} 
                                 onChange={quantity => this.setState({quantity})}
                                 minValue={0}
-                                maxValue={10}
+                                maxValue={this.props.item.quantity}
                                 containerStyle={{marginLeft: 20}} 
                                 totalWidth={calcSize(240)} 
                                 totalHeight={calcSize(50)} 

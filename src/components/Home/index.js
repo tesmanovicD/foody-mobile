@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from 'react-native-vector-icons/Entypo'
+import { connect } from 'react-redux'
 
 import styles from './home.style'
+import actions from '../../modules/actions/index'
 
 
 class Home extends Component {
   static navigationOptions = {
     header: null
   }
-  
+
+  componentDidMount() {
+    this.props.dispatch(actions.food.getAllCategories())
+    .catch(err => console.warn("ERR", err))
+  }  
 
   openMenuCategories = (id, name) => {
     this.props.navigation.navigate(
@@ -19,31 +25,18 @@ class Home extends Component {
     )
   }
 
+  upperFirstCase = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1)
+  }
+
   render() {
+    console.warn(this.props.categories)
     const list = [
         {
           id: 0,
           name: 'Snacks',
           avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
           subtitle: 'Vice President'
-        },
-        {
-          id: 1,
-          name: 'Sandwiches',
-          avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-          subtitle: 'Vice Chairman'
-        },
-        {
-          id: 2,
-          name: 'Dessert',
-          avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-          subtitle: 'Vice Chairman'
-        },
-        {
-          id: 3,
-          name: 'Sweets',
-          avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/128.jpg',
-          subtitle: 'Vice Chairman'
         }
     ]
 
@@ -60,13 +53,13 @@ class Home extends Component {
         </View>
         <View style={styles.listContainer}>
 				<List>
-					{list.map((el, key) => (
+					{this.props.categories.map(cat => (
 						<ListItem
 							roundAvatar
-							avatar={{uri:el.avatar_url}}
-							key={key}
-							title={el.name}
-							onPress={() => this.openMenuCategories(el.id, el.name)}
+							avatar={{uri:list[0].avatar_url}}
+							key={cat.id}
+							title={cat.name}
+							onPress={() => this.openMenuCategories(cat.id, cat.name)}
 						/>
 					))}
 				</List>
@@ -76,4 +69,10 @@ class Home extends Component {
   }
 }
 
-export default Home
+const mapStateToProps = (state) => {
+  return {
+    categories: state.food.categories
+  }
+}
+
+export default connect(mapStateToProps)(Home)
