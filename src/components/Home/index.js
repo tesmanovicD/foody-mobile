@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
-import Icon from 'react-native-vector-icons/Entypo'
 import { connect } from 'react-redux'
 
 import styles from './home.style'
 import actions from '../../modules/actions/index'
-
+import Header from '../Header'
 
 class Home extends Component {
   static navigationOptions = {
@@ -25,9 +24,7 @@ class Home extends Component {
     )
   }
 
-  upperFirstCase = (word) => {
-    return word.charAt(0).toUpperCase() + word.slice(1)
-  }
+  openLeftMenu = () => this.props.navigation.openDrawer()
 
   render() {
     console.warn(this.props.categories)
@@ -42,15 +39,7 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <TouchableOpacity style={styles.headerMenuIcon} onPress={() =>this.props.navigation.openDrawer()}>
-            <Icon name="menu" size={30} color="#fff" />
-          </TouchableOpacity>
-          <Text style={styles.headerTitle}>Menu</Text>
-          <Text style={styles.headerBasketIcon}>
-            <Icon name="shopping-basket" size={25} color="#fff" />
-          </Text>
-        </View>
+				<Header action={this.openLeftMenu} iconName="menu" title="Menu" navigation={this.props.navigation} />
         <View style={styles.listContainer}>
 				<List>
 					{this.props.categories.map(cat => (

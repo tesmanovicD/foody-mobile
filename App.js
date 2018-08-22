@@ -18,7 +18,9 @@ import Home from './src/components/Home';
 import MenuCategories from './src/components/MenuCategories';
 import Sidebar from './src/components/Sidebar'
 import store from './src/modules/store';
+import Basket from './src/components/Basket';
 
+store.subscribe(() => console.warn(store.getState("basket")))
 
 export default class App extends Component {
   render() {
@@ -35,7 +37,8 @@ export default class App extends Component {
 const AppStackNavigator = {
   login: Login,
   home: Home,
-  menuCategories: MenuCategories
+  menuCategories: MenuCategories,
+  basket: Basket
 }
 
 const AppDrawerNavigation = {
@@ -46,6 +49,10 @@ const AppDrawerNavigation = {
   HomeViewStack: {
 		name: 'Home',
 		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'home' })
+  },
+  HomeViewStack: {
+		name: 'Basket',
+		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'basket' })
   },
 }
 

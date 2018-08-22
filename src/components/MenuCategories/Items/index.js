@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modal'
 import NumericInput,{ calcSize } from 'react-native-numeric-input'
+import { connect } from 'react-redux'
 
 import styles from './items.style'
+import actions from '../../../modules/actions'
 
 class Items extends Component {
 
@@ -16,11 +18,18 @@ class Items extends Component {
     showModal = () => this.setState({ showModal: true })
 
     addToCart = () => {
+        if (this.state.quantity < 1) {
+            return console.warn("Quantity must be minimum 1")
+        }
         const item = {
             id: this.props.item.id,
+            name: this.props.item.name,
+            price: this.props.item.price,
             quantity: this.state.quantity
         }
-        console.warn(item)
+
+        this.props.dispatch(actions.basket.addItem(item))
+        this.setState({ quantity: 0 })
         this.hideModal();
     }
 
@@ -86,5 +95,10 @@ class Items extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        basket: state.basket
+    }
+}
 
-export default Items
+export default connect(mapStateToProps)(Items)

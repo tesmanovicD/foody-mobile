@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { Text, View } from 'react-native'
-import Icon from 'react-native-vector-icons/Entypo'
 import { connect } from 'react-redux'
 
 import styles from './menuCategories.style'
 import Items from './Items'
 import actions from '../../modules/actions'
+import Header from '../Header'
 
 class MenuCategories extends Component {
 
@@ -35,13 +35,7 @@ class MenuCategories extends Component {
 
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-					<Icon name="arrow-bold-left" size={30} color='#fff' onPress={this.goBack} />
-          <Text style={styles.headerTitle}>{ categoryName }</Text>
-          <Text style={styles.headerBasketIcon}>
-            <Icon name="shopping-basket" size={25} color="#fff" />
-          </Text>
-        </View>
+				<Header action={this.goBack} iconName="arrow-bold-left" title={ categoryName } navigation={this.props.navigation} />
 				<View>
 					{
 						this.state.errMessage ?
@@ -57,7 +51,8 @@ class MenuCategories extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		menuItems: state.food.filteredItems
+		menuItems: state.food.filteredItems,
+		totalProducts: state.basket.totalProducts
 	}
 }
 
