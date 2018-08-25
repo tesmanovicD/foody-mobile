@@ -19,8 +19,9 @@ import MenuCategories from './src/components/MenuCategories';
 import Sidebar from './src/components/Sidebar'
 import store from './src/modules/store';
 import Basket from './src/components/Basket';
+import { CompleteOrder } from './src/components/CompleteOrder';
 
-store.subscribe(() => console.warn(store.getState("basket")))
+// store.subscribe(() => console.warn(store.getState("basket")))
 
 export default class App extends Component {
   render() {
@@ -38,7 +39,8 @@ const AppStackNavigator = {
   login: Login,
   home: Home,
   menuCategories: MenuCategories,
-  basket: Basket
+  basket: Basket,
+  completeOrder: CompleteOrder
 }
 
 const AppDrawerNavigation = {

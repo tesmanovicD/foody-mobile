@@ -17,7 +17,8 @@ export default StyleSheet.create({
         fontWeight: '800'
     },
     headerBasketIcon: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        position: 'relative'
     },
     errMessage: {
         alignSelf: 'center',

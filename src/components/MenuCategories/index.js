@@ -25,6 +25,8 @@ class MenuCategories extends Component {
 	
 	goBack = () => this.props.navigation.goBack()
 
+	goToBasket = () => this.props.navigation.navigate("basket")
+
 	getMenuItems = (id) => {
 		this.props.dispatch(actions.food.getItemsFromCategory(id))
 		.catch(err => this.setState({ errMessage: err.data }))
@@ -35,7 +37,11 @@ class MenuCategories extends Component {
 
     return (
       <View style={styles.container}>
-				<Header action={this.goBack} iconName="arrow-bold-left" title={ categoryName } navigation={this.props.navigation} />
+				<Header
+					leftAction={this.goBack} leftIconName="arrow-bold-left"
+					rightAction={this.goToBasket} rightIconName="shopping-basket"
+					title={ categoryName }
+				/>
 				<View>
 					{
 						this.state.errMessage ?

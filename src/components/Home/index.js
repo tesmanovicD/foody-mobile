@@ -24,6 +24,8 @@ class Home extends Component {
     )
   }
 
+  goToBasket = () => this.props.navigation.navigate('basket')
+
   openLeftMenu = () => this.props.navigation.openDrawer()
 
   render() {
@@ -39,7 +41,11 @@ class Home extends Component {
 
     return (
       <View style={styles.container}>
-				<Header action={this.openLeftMenu} iconName="menu" title="Menu" navigation={this.props.navigation} />
+        <Header
+          leftAction={this.openLeftMenu} leftIconName="menu"
+          rightAction={this.goToBasket} rightIconName="shopping-basket"
+          title="Menu"
+        />
         <View style={styles.listContainer}>
 				<List>
 					{this.props.categories.map(cat => (
