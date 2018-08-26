@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/SimpleLineIcons'
 import styles from './completeOrder.style'
 import Header from '../Header'
 
-export class CompleteOrder extends Component {
+class CompleteOrder extends Component {
 
 	static navigationOptions = {
 		header: null
@@ -16,8 +16,10 @@ export class CompleteOrder extends Component {
 	backToMenu = () => this.props.navigation.navigate('home')
 
 	goToMyOrders = () => this.props.navigation.navigate('myOrders')
- 
+
   render() {
+		const orderNo = this.props.navigation.state.params.orderNo
+
     return (
       <View style={styles.container}>
 				<View>
@@ -34,7 +36,7 @@ export class CompleteOrder extends Component {
 							</Text>
 							<Text style={styles.orderText}>Your Order Number:</Text>
 						</View>
-							<Text style={styles.orderNumber}>1140407412</Text>
+							<Text style={styles.orderNumber}>{orderNo}</Text>
 					</View>
 				</View>
 

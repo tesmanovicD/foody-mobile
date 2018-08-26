@@ -27,8 +27,8 @@ class Basket extends Component {
 		const basket = this.props.basket
 
 		this.props.dispatch(actions.basket.addOrder(basket.products, this.props.activeUser.id, basket.totalSum))
-		.then(() => {
-			this.props.navigation.navigate('completeOrder')
+		.then((orderNo) => {
+			this.props.navigation.navigate('completeOrder', {orderNo})
 		})
 
 		

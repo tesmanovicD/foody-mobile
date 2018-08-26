@@ -3,11 +3,13 @@ import thunk from 'redux-thunk'
 import user from '../reducers/userReducer'
 import food from '../reducers/foodReducer'
 import basket from '../reducers/basketReducer'
+import order from '../reducers/orderReducer'
 
 const rootReducer = combineReducers({
     user,
     food,
-    basket
+    basket,
+    order
 })
 
 const store = createStore(

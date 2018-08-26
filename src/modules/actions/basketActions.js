@@ -20,16 +20,18 @@ function clearBasket() {
 }
 
 function addOrder(items, idCustomer, totalSum) {
+    const orderNo = (Date.now() + "").slice(-8)
+
     return dispatch => {
         return new Promise((resolve, reject) => {
-            api.post('/orderPayments/add', {idCustomer})
+            api.post('/orderPayments/add', {idCustomer, orderNo})
             .then((res) => {
                 api.post('/orderItems/add', {items, lastId: res.lastId})
                 .then(() => {
                     api.put('/orderPayments/edit', {id: res.lastId, price: totalSum})
                     .then(() => {
                         dispatch(clearBasket())
-                        resolve()
+                        resolve(orderNo)
                     })
                     .catch(err => reject(err))
                 })

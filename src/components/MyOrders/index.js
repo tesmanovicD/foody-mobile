@@ -1,19 +1,26 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
+import { connect } from 'react-redux'
 
 import Icon from 'react-native-vector-icons/Entypo'
 import Header from '../Header'
 import styles from './myOrders.style'
+import actions from '../../modules/actions';
 
-export class MyOrders extends Component {
+class MyOrders extends Component {
 
   static navigationOptions = {
     header: null
   }
 
+  componentDidMount() {
+    this.props.dispatch(actions.order.getAllOrders())
+  }
+
   openLeftMenu = () => this.props.navigation.openDrawer()
 
   render() {
+    console.warn(this.props.orders)
     return (
       <View style={styles.container}>
         <Header
@@ -56,4 +63,10 @@ export class MyOrders extends Component {
   }
 }
 
-export default MyOrders
+const mapStateToProps = (state) => {
+  return {
+    orders: state.order.orders
+  }
+}
+
+export default connect(mapStateToProps)(MyOrders)

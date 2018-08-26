@@ -19,8 +19,8 @@ import MenuCategories from './src/components/MenuCategories';
 import Sidebar from './src/components/Sidebar'
 import store from './src/modules/store';
 import Basket from './src/components/Basket';
-import { CompleteOrder } from './src/components/CompleteOrder';
-import { MyOrders } from './src/components/MyOrders';
+import CompleteOrder from './src/components/CompleteOrder';
+import MyOrders from './src/components/MyOrders';
 
 // store.subscribe(() => console.warn(store.getState("basket")))
 
