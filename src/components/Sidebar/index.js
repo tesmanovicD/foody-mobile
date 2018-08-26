@@ -14,7 +14,8 @@ class Sidebar extends Component {
     const routes = [
         { title: "Home", route: "home" , display: this.props.loggedIn },
         { title: "Login", route: "login", display: !this.props.loggedIn },
-        { title: "Basket", route: "basket", display: this.props.loggedIn }
+        { title: "Basket", route: "basket", display: this.props.loggedIn },
+        { title: "My Orders", route: "myOrders", display: this.props.loggedIn }
     ]
 
     return (

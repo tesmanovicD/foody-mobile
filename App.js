@@ -20,6 +20,7 @@ import Sidebar from './src/components/Sidebar'
 import store from './src/modules/store';
 import Basket from './src/components/Basket';
 import { CompleteOrder } from './src/components/CompleteOrder';
+import { MyOrders } from './src/components/MyOrders';
 
 // store.subscribe(() => console.warn(store.getState("basket")))
 
@@ -40,7 +41,8 @@ const AppStackNavigator = {
   home: Home,
   menuCategories: MenuCategories,
   basket: Basket,
-  completeOrder: CompleteOrder
+  completeOrder: CompleteOrder,
+  myOrders: MyOrders
 }
 
 const AppDrawerNavigation = {
@@ -52,9 +54,13 @@ const AppDrawerNavigation = {
 		name: 'Home',
 		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'home' })
   },
-  HomeViewStack: {
+  BasketViewStack: {
 		name: 'Basket',
 		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'basket' })
+  },
+  MyOrdersViewStack: {
+		name: 'MyOrders',
+		screen: StackNavigator(AppStackNavigator, { initialRouteName: 'myOrders' })
   },
 }
 

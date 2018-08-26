@@ -20,7 +20,7 @@ const BasketItem = (props) => (
 			<Icon name="edit" size={17} color="#a8a8a8" style={styles.icon}/>
 		</TouchableOpacity>
 
-		<TouchableOpacity>
+		<TouchableOpacity onPress={() => props.deleteItem(props.item) }>
 			<Icon name="trash" size={17} color="#a8a8a8" style={styles.icon} />
 		</TouchableOpacity>
 	</View>

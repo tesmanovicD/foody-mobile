@@ -29,7 +29,6 @@ class Home extends Component {
   openLeftMenu = () => this.props.navigation.openDrawer()
 
   render() {
-    console.warn(this.props.categories)
     const list = [
         {
           id: 0,

@@ -15,6 +15,8 @@ export class CompleteOrder extends Component {
 
 	backToMenu = () => this.props.navigation.navigate('home')
 
+	goToMyOrders = () => this.props.navigation.navigate('myOrders')
+ 
   render() {
     return (
       <View style={styles.container}>
@@ -41,7 +43,7 @@ export class CompleteOrder extends Component {
 							<Text style={styles.thanksMessage}>Thank you!</Text>
 				</View>
 
-				<TouchableOpacity style={styles.submitButton}>
+				<TouchableOpacity style={styles.submitButton} onPress={this.goToMyOrders}>
 						<Text style={styles.submitText}>Go to my orders</Text>
 				</TouchableOpacity>
       </View>

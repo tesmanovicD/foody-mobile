@@ -19,10 +19,26 @@ class Basket extends Component {
 
 	backToMenu = () => this.props.navigation.navigate('home')
 
-	completeOrder = () => this.props.navigation.navigate('completeOrder')
+	completeOrder = () => {
+		if (!this.props.basket.products.length) {
+			return console.warn("You must add items to basket")
+		}
+
+		const basket = this.props.basket
+
+		this.props.dispatch(actions.basket.addOrder(basket.products, this.props.activeUser.id, basket.totalSum))
+		.then(() => {
+			this.props.navigation.navigate('completeOrder')
+		})
+
+		
+	}
+
+	deleteItem = (item) => {
+		this.props.dispatch(actions.basket.deleteItem(item))
+	}
 
   render() {
-
     return (
       <View style={styles.container}>
 				<View>
@@ -34,7 +50,7 @@ class Basket extends Component {
 					<View style={styles.items}>
 						{this.props.basket.products.length > 0 ?
 							this.props.basket.products.map(p => (
-								<BasketItem item={p} key={p.id} />
+								<BasketItem item={p} key={p.id} deleteItem={this.deleteItem} />
 							))
 							:
 							<Text style={styles.errMessage}>No items in basket</Text>
@@ -61,7 +77,8 @@ class Basket extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		basket: state.basket
+		basket: state.basket,
+		activeUser: state.user.userInfo
 	}
 }
 

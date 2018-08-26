@@ -7,6 +7,43 @@ function addItem(item) {
     }
 }
 
+function deleteItem(item) {
+    return dispatch => {
+		dispatch({ type: 'DELETE_ITEM_FROM_BASKET', payload: {item} })        
+    }
+}
+
+function clearBasket() {
+    return dispatch => {
+        dispatch({ type: 'CLEAR_BASKET' })
+    }
+}
+
+function addOrder(items, idCustomer, totalSum) {
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            api.post('/orderPayments/add', {idCustomer})
+            .then((res) => {
+                api.post('/orderItems/add', {items, lastId: res.lastId})
+                .then(() => {
+                    api.put('/orderPayments/edit', {id: res.lastId, price: totalSum})
+                    .then(() => {
+                        dispatch(clearBasket())
+                        resolve()
+                    })
+                    .catch(err => reject(err))
+                })
+                .catch((err) => reject(err))
+            })
+            .catch((err) => reject(err))
+        })
+    }
+    
+}
+
 export default {
-    addItem
+    addItem,
+    deleteItem,
+    clearBasket,
+    addOrder
 }
