@@ -16,7 +16,7 @@ const BasketItem = (props) => (
 		<Text>{props.item.quantity > 1 && `${props.item.quantity} x ${props.item.price} =` }{calculatePrice(props.item.price, props.item.quantity)}</Text>
 	</View>
 	<View style={styles.itemControl}>
-		<TouchableOpacity >
+		<TouchableOpacity>
 			<Icon name="edit" size={17} color="#a8a8a8" style={styles.icon}/>
 		</TouchableOpacity>
 

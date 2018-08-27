@@ -6,27 +6,31 @@ export default StyleSheet.create({
         borderColor: '#d6d7da',
         borderBottomWidth: 2,
         padding: 10,
-        alignItems: 'center'
+        paddingRight: 0,
+        alignItems: 'center',
+        backgroundColor: '#fff'
     },
     itemTitle: {
         fontSize: 18,
         fontWeight: "800",
     },
     itemDescription: {
-        color: '#f00'
+        
     },
     itemPrice: {
         alignSelf: 'flex-end',
         backgroundColor: '#41934c',
         paddingVertical: 4,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         color: '#fff'
     },
     itemAddButton: {
         marginTop: 10,
+        marginRight: 5,
         padding: 3,
         borderColor: 'orange',
-        borderWidth: 1,
+        borderWidth: 2,
+        borderRadius: 3
     },
     buttonText: {
         textAlign: 'center'
@@ -51,7 +55,8 @@ export default StyleSheet.create({
         paddingTop: 20
     },
     itemButtons: {
-        marginVertical: 30,
+        marginTop: 30,
+        marginBottom: 15,
         flexDirection: 'row',
         justifyContent: 'space-around'
     },
@@ -76,6 +81,7 @@ export default StyleSheet.create({
     test: {
         flexGrow: 2,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        marginLeft: 10
     },
 })

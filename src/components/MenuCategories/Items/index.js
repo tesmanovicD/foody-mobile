@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, Image } from 'react-native'
 import Modal from 'react-native-modal'
 import NumericInput,{ calcSize } from 'react-native-numeric-input'
 import { connect } from 'react-redux'
@@ -36,15 +36,19 @@ class Items extends Component {
     render() {
         return (
         <View style={styles.container}>
-            <Text>avatar</Text>
+            <Image
+                style={{width: 90, height: 60, alignSelf: 'center', borderRadius: 20}}
+                source={{uri: 'http://192.168.1.150:5000/uploads/food/no_image.png'}}
+                resizeMode="stretch" 
+            />
             <View style={styles.test}>
                 <View>       
                     <Text style={styles.itemTitle}>{this.props.item.name}</Text>
-                    <Text style={styles.itemDescription}>Description</Text>
+                    <Text style={styles.itemDescription}>{this.props.item.description}</Text>
                 </View>
                 
                 <View>
-                    <Text style={styles.itemPrice}>{this.props.item.price} RSD</Text>
+                    <Text style={styles.itemPrice}>$ {this.props.item.price.toFixed(2)}</Text>
                     <TouchableOpacity style={styles.itemAddButton} onPress={this.showModal}>
                         <Text style={styles.buttonText}>Add</Text>
                     </TouchableOpacity>
@@ -52,14 +56,18 @@ class Items extends Component {
             </View>
             <Modal isVisible={this.state.showModal} onBackButtonPress={this.hideModal} onBackdropPress={this.hideModal}>
                 <View style={styles.itemPreview}>
-                    <View>
-                        <Text>avatar</Text>
-                        <Text style={styles.itemPrice}>{this.props.item.price}</Text>
+                    <View style={{height: 150}}>
+                        <Image
+                            style={{flex:1, position: 'relative'}}
+                            source={{uri: 'http://192.168.1.150:5000/uploads/food/no_image.png'}}
+                            resizeMode="stretch"
+                        />
+                        <Text style={[styles.itemPrice, {flex: 0.5, position: 'absolute', 'top': 20}]}>$ {this.props.item.price.toFixed(2)}</Text>
                     </View>
                     <View>
                         <View style={styles.itemContent}>
                             <Text style={styles.itemPreviewHeader}>{this.props.item.name}</Text>
-                            <Text>Description</Text>
+                            <Text>{this.props.item.description}</Text>
                         </View>
                         <View style={styles.quantity}>
                             <Text style={styles.itemPreviewHeader}>Quantity</Text>
