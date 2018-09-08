@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
+import OneSignal from 'react-native-onesignal'
 
 import styles from './home.style'
 import actions from '../../modules/actions/index'
@@ -10,6 +11,13 @@ import Header from '../Header'
 class Home extends Component {
   static navigationOptions = {
     header: null
+  }
+
+  componentWillMount() {
+    const { id } = this.props.userInfo
+    OneSignal.init("74723254-f9b6-4f24-bde3-5835a592f71e")
+    console.warn(id)
+    OneSignal.sendTag("id", `${id}`)
   }
 
   componentDidMount() {
@@ -65,7 +73,8 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    categories: state.food.categories
+    categories: state.food.categories,
+    userInfo: state.user.userInfo
   }
 }
 

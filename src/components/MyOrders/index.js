@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+import OneSignal from 'react-native-onesignal'
 
 import Header from '../Header'
 import Order from './Order'
@@ -10,15 +11,25 @@ import actions from '../../modules/actions';
 class MyOrders extends Component {
 
   static navigationOptions = {
-    header: null
+    header: null,
+    loaded: false
   }
 
   state = {
     orderType: 'ongoing'
   }
 
+  componentWillMount() {
+    OneSignal.addEventListener('opened', this.refreshOrders);
+  }
+
   componentDidMount() {
-    this.props.dispatch(actions.order.getAllOrders())
+    this.props.dispatch(actions.order.getAllOrders(this.props.userInfo.id))
+    .done(() => this.setState({ loaded: true }))
+  }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('opened', this.refreshOrders);
   }
 
   openLeftMenu = () => this.props.navigation.openDrawer()
@@ -27,11 +38,15 @@ class MyOrders extends Component {
 
   changeOrderType = (orderType) => this.setState({ orderType })
 
+  refreshOrders = () => this.props.dispatch(actions.order.getAllOrders(this.props.userInfo.id))
+
   render() {
+ 
     return (
       <View style={styles.container}>
         <Header
           leftAction={this.openLeftMenu} leftIconName="menu"
+          rightAction={this.refreshOrders} rightIconName="cycle" 
           title="My Orders"
         />
   
@@ -45,7 +60,10 @@ class MyOrders extends Component {
               style={[styles.navText, this.state.orderType == 'past' && styles.activeItem]}>Past Orders</Text>
           </TouchableOpacity>
         </View>
-        { this.state.orderType === 'ongoing' ?
+        { this.state.loaded &&
+          this.props.orders.length ?
+        
+          this.state.orderType === 'ongoing' ?
           (
           this.props.orders.map(order => {
             if (order.status === 'Pending' || order.status === 'Ready') {
@@ -53,7 +71,8 @@ class MyOrders extends Component {
               return <Order order={order} key={order.id} orderItems={orderItems} cancelOrder={this.cancelOrder}/>
             }
           })
-          ) :
+          )
+          :
           (
             this.props.orders.map(order => {
             if (order.status === 'Completed' || order.status === 'Canceled') {
@@ -62,7 +81,9 @@ class MyOrders extends Component {
             }
           })
           )
-        }
+          :
+          <Text style={styles.errMessage}>User orders list is empty </Text>
+      }
       </View>
     )
   }
@@ -71,7 +92,8 @@ class MyOrders extends Component {
 const mapStateToProps = (state) => {
   return {
     orders: state.order.orders,
-    orderItems: state.order.orderItems
+    orderItems: state.order.orderItems,
+    userInfo: state.user.userInfo
   }
 }
 

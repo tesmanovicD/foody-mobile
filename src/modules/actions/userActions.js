@@ -1,9 +1,9 @@
 import api from '../../utils/api'
 
-function authenticateUser(username, password) {
+function authenticateUser(email, password) {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            api.post('/employee/authenticate', { username, password })
+            api.post('/customers/authenticate', { email, password })
             .then(userInfo => {
                 dispatch({ type: 'LOGIN_SUCCESS', payload: {userInfo} })
                 resolve()

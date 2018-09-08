@@ -25,6 +25,7 @@ import MyOrders from './src/components/MyOrders';
 // store.subscribe(() => console.warn(store.getState("basket")))
 
 export default class App extends Component {
+
   render() {
     return (
       <Provider store={store}>

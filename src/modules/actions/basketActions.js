@@ -32,6 +32,13 @@ function addOrder(items, idCustomer, totalSum) {
                     .then(() => {
                         dispatch(clearBasket())
                         resolve(orderNo)
+                        const data = {
+                            app_id: "74723254-f9b6-4f24-bde3-5835a592f71e",
+                            included_segments: "Chefs",
+                            contents: {"en": `New order with ID #${orderNo} is waiting for review`}
+                        }
+                        api.post('https://onesignal.com/api/v1/notifications', data)
+                        .catch(err => console.warn(err))
                     })
                     .catch(err => reject(err))
                 })

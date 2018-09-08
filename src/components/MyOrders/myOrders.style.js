@@ -23,5 +23,10 @@ export default StyleSheet.create({
     navText: {
         fontSize: 17,
         fontWeight: '600'
+    },
+    errMessage: {
+        marginTop: 10,
+        fontSize: 22,
+        textAlign: 'center'
     }
 })

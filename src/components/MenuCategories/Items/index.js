@@ -38,7 +38,7 @@ class Items extends Component {
         <View style={styles.container}>
             <Image
                 style={{width: 90, height: 60, alignSelf: 'center', borderRadius: 20}}
-                source={{uri: 'http://192.168.1.150:5000/uploads/food/no_image.png'}}
+                source={{uri: `http://192.168.1.5:5000/uploads/food/${this.props.item.image}`}}
                 resizeMode="stretch" 
             />
             <View style={styles.test}>
@@ -59,7 +59,7 @@ class Items extends Component {
                     <View style={{height: 150}}>
                         <Image
                             style={{flex:1, position: 'relative'}}
-                            source={{uri: 'http://192.168.1.150:5000/uploads/food/no_image.png'}}
+                            source={{uri: `http://192.168.1.5:5000/uploads/food/${this.props.item.image}`}}
                             resizeMode="stretch"
                         />
                         <Text style={[styles.itemPrice, {flex: 0.5, position: 'absolute', 'top': 20}]}>$ {this.props.item.price.toFixed(2)}</Text>

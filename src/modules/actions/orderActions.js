@@ -1,9 +1,9 @@
 import api from '../../utils/api'
 
-function getAllOrders() {
+function getAllOrders(id) {
     return dispatch => {
         return new Promise((resolve, reject) => {
-            api.get('/orderPayments')
+            api.get(`/orderPayments/getUserOrders/${id}`)
             .then(orders => {
                 dispatch({ type: 'SET_ORDERS', payload: {orders} })
                 dispatch(getAllOrderItems())

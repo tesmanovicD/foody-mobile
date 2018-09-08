@@ -11,14 +11,14 @@ class Login extends Component {
 	}
 
 	state = {
-		username: '',
+		email: '',
 		password: ''
 	}
 
 	authenticateUser = () => {
 		
-		const { username, password } =this.state;
-		this.props.dispatch(actions.user.authenticateUser(username, password))
+		const { email, password } =this.state;
+		this.props.dispatch(actions.user.authenticateUser(email, password))
 		.then(() => {
 			this.props.navigation.navigate('home')
 		})
@@ -43,10 +43,10 @@ class Login extends Component {
 					<Text style={styles.title}>Account Informaion</Text>
 					<TextInput
 						style={styles.textInput}
-						onChangeText={username => this.setState({ username })}
+						onChangeText={email => this.setState({ email })}
 						returnKeyType="next"
 						underlineColorAndroid={'transparent'}
-						placeholder="Enter your username"
+						placeholder="Enter your e-mail"
 						placeholderTextColor="#000"
 						onSubmitEditing={() => this.refs.txtPassword.focus()}/> 
 
