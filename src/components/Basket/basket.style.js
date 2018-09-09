@@ -48,5 +48,29 @@ export default StyleSheet.create({
         marginTop: 10,
         fontSize: 22,
         textAlign: 'center'
+    },
+    couponInfo: {
+        flexDirection: 'row'
+    },
+    textInput: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        height: 40,
+        paddingHorizontal: 20,
+        color: '#fff',
+        marginBottom: 20,
+        marginHorizontal: 10
+    },
+    verifyButton: {	
+        flex: 0.5,
+        backgroundColor: '#5cbf2a',
+        marginRight: 10,
+        marginBottom: 20,
+        justifyContent: 'center'
+    },
+    verifyText: {
+        fontSize: 18,
+        color: '#ffffff',
+        alignSelf: 'center'
     }
 })

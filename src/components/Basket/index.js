@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Button } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput } from 'react-native'
 import { connect } from 'react-redux'
 
 import styles from './basket.style'
@@ -13,11 +13,32 @@ class Basket extends Component {
 		header: null
 	}
 	
+	state = {
+		coupon: '',
+	}
+
 	goBack = () => this.props.navigation.goBack()
 
 	goToBasket = () => this.props.navigation.navigate('basket')
 
 	backToMenu = () => this.props.navigation.navigate('home')
+
+	verifyCoupon = () => {
+		if (this.state.coupon.length < 1) {
+			console.warn("You must provide discount code")
+			return
+		} else if (this.props.basket.usedCoupon === true) {
+			console.warn("You already used coupon discount")
+			return
+		} else if (this.props.basket.products.length === 0) {
+			console.warn("You must add items to basket")
+			return
+		}
+
+		this.props.dispatch(actions.basket.verifyCoupon(this.state.coupon))
+		.then(() => this.setState({ usedCoupon: true }))
+		.catch(err => console.warn(err))
+	}
 
 	completeOrder = () => {
 		if (!this.props.basket.products.length) {
@@ -64,6 +85,20 @@ class Basket extends Component {
 							<View>
 								<Text style={styles.totalSumText}>Total: $ {this.props.basket.totalSum}</Text>
 							</View>
+						</View>
+
+						<View style={styles.couponInfo}>
+							<TextInput
+								style={styles.textInput}
+								onChangeText={coupon => this.setState({ coupon })}
+								returnKeyType="done"
+								underlineColorAndroid={'transparent'}
+								placeholder="Enter your discount code"
+								placeholderTextColor="#000"
+								maxLength={20}/> 
+							<TouchableOpacity style={styles.verifyButton} onPress={this.verifyCoupon}>
+								<Text style={styles.verifyText}>Verify</Text>
+							</TouchableOpacity>
 						</View>
 					</View>
 					</View>

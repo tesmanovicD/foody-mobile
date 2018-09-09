@@ -50,9 +50,25 @@ function addOrder(items, idCustomer, totalSum) {
     
 }
 
+function verifyCoupon(id) {
+    return dispatch => {
+        return new Promise((resolve, reject) => {
+            api.get(`/coupons/verify/${id}`)
+            .then(res => {
+                const type = res.type === 'percentage' ? 'ACTIVATE_DISCOUNT_PERCENTAGE' : 'ACTIVATE_DISCOUNT_FIXED'
+                dispatch({ type, payload: {discount: res.discount } })
+                resolve()
+            })
+            .catch(err => reject(err))
+        })
+    }
+}
+
+
 export default {
     addItem,
     deleteItem,
     clearBasket,
-    addOrder
+    addOrder,
+    verifyCoupon
 }
