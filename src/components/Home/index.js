@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View, ToastAndroid } from 'react-native'
 import { List, ListItem } from 'react-native-elements'
 import { connect } from 'react-redux'
 import OneSignal from 'react-native-onesignal'
@@ -16,13 +16,12 @@ class Home extends Component {
   componentWillMount() {
     const { id } = this.props.userInfo
     OneSignal.init("74723254-f9b6-4f24-bde3-5835a592f71e")
-    console.warn(id)
     OneSignal.sendTag("id", `${id}`)
   }
 
   componentDidMount() {
     this.props.dispatch(actions.food.getAllCategories())
-    .catch(err => console.warn("ERR", err))
+    .catch(err => ToastAndroid.show(err.data, ToastAndroid.SHORT))
   }  
 
   openMenuCategories = (id, name) => {
@@ -58,7 +57,7 @@ class Home extends Component {
 					{this.props.categories.map(cat => (
 						<ListItem
 							roundAvatar
-							avatar={{uri:list[0].avatar_url}}
+							avatar={{uri:`https://sheltered-coast-98280.herokuapp.com/uploads/category/${cat.image}`}}
 							key={cat.id}
 							title={cat.name}
 							onPress={() => this.openMenuCategories(cat.id, cat.name)}

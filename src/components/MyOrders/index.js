@@ -6,7 +6,7 @@ import OneSignal from 'react-native-onesignal'
 import Header from '../Header'
 import Order from './Order'
 import styles from './myOrders.style'
-import actions from '../../modules/actions';
+import actions from '../../modules/actions'
 
 class MyOrders extends Component {
 
@@ -20,7 +20,7 @@ class MyOrders extends Component {
   }
 
   componentWillMount() {
-    OneSignal.addEventListener('opened', this.refreshOrders);
+    OneSignal.addEventListener('opened', this.refreshOrders)
   }
 
   componentDidMount() {
@@ -29,7 +29,7 @@ class MyOrders extends Component {
   }
 
   componentWillUnmount() {
-    OneSignal.removeEventListener('opened', this.refreshOrders);
+    OneSignal.removeEventListener('opened', this.refreshOrders)
   }
 
   openLeftMenu = () => this.props.navigation.openDrawer()
@@ -60,6 +60,7 @@ class MyOrders extends Component {
               style={[styles.navText, this.state.orderType == 'past' && styles.activeItem]}>Past Orders</Text>
           </TouchableOpacity>
         </View>
+        <View style={{flex: 1}}>
         { this.state.loaded &&
           this.props.orders.length ?
         
@@ -67,7 +68,7 @@ class MyOrders extends Component {
           (
           this.props.orders.map(order => {
             if (order.status === 'Pending' || order.status === 'Ready') {
-              let orderItems = this.props.orderItems.filter(o => o.id_order == order.id);
+              let orderItems = this.props.orderItems.filter(o => o.id_order == order.id)
               return <Order order={order} key={order.id} orderItems={orderItems} cancelOrder={this.cancelOrder}/>
             }
           })
@@ -76,7 +77,7 @@ class MyOrders extends Component {
           (
             this.props.orders.map(order => {
             if (order.status === 'Completed' || order.status === 'Canceled') {
-            let orderItems = this.props.orderItems.filter(o => o.id_order == order.id);
+            let orderItems = this.props.orderItems.filter(o => o.id_order == order.id)
             return <Order order={order} key={order.id} orderItems={orderItems} orderType="past" />
             }
           })
@@ -84,6 +85,7 @@ class MyOrders extends Component {
           :
           <Text style={styles.errMessage}>User orders list is empty </Text>
       }
+      </View>
       </View>
     )
   }

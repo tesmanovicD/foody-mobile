@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, Image } from 'react-native'
+import { Text, View, TouchableOpacity, Image, ToastAndroid } from 'react-native'
 import Modal from 'react-native-modal'
 import NumericInput,{ calcSize } from 'react-native-numeric-input'
 import { connect } from 'react-redux'
@@ -19,7 +19,7 @@ class Items extends Component {
 
     addToCart = () => {
         if (this.state.quantity < 1) {
-            return console.warn("Quantity must be minimum 1")
+            return ToastAndroid.show('Quantity must be minimum 1', ToastAndroid.SHORT)
         }
         const item = {
             id: this.props.item.id,
@@ -30,7 +30,7 @@ class Items extends Component {
 
         this.props.dispatch(actions.basket.addItem(item))
         this.setState({ quantity: 0 })
-        this.hideModal();
+        this.hideModal()
     }
 
     render() {
@@ -38,7 +38,7 @@ class Items extends Component {
         <View style={styles.container}>
             <Image
                 style={{width: 90, height: 60, alignSelf: 'center', borderRadius: 20}}
-                source={{uri: `http://192.168.1.5:5000/uploads/food/${this.props.item.image}`}}
+                source={{uri: `https://sheltered-coast-98280.herokuapp.com/uploads/food/${this.props.item.image}`}}
                 resizeMode="stretch" 
             />
             <View style={styles.test}>
@@ -59,7 +59,7 @@ class Items extends Component {
                     <View style={{height: 150}}>
                         <Image
                             style={{flex:1, position: 'relative'}}
-                            source={{uri: `http://192.168.1.5:5000/uploads/food/${this.props.item.image}`}}
+                            source={{uri: `https://sheltered-coast-98280.herokuapp.com/uploads/food/${this.props.item.image}`}}
                             resizeMode="stretch"
                         />
                         <Text style={[styles.itemPrice, {flex: 0.5, position: 'absolute', 'top': 20}]}>$ {this.props.item.price.toFixed(2)}</Text>

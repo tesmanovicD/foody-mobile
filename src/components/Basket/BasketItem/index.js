@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/Entypo'
 
 import styles from './basketItem.style'
 
 const calculatePrice = (price, quantity) => {
-	return `$${price * quantity}`;
+	return `$${price * quantity}`
 }
 
 const BasketItem = (props) => (

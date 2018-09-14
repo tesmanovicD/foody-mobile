@@ -4,25 +4,23 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   StyleSheet,
   Text,
   View
-} from 'react-native';
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+} from 'react-native'
+import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import { Provider } from 'react-redux'
 
-import Login from './src/components/Login';
-import Home from './src/components/Home';
-import MenuCategories from './src/components/MenuCategories';
+import Login from './src/components/Login'
+import Home from './src/components/Home'
+import MenuCategories from './src/components/MenuCategories'
 import Sidebar from './src/components/Sidebar'
-import store from './src/modules/store';
-import Basket from './src/components/Basket';
-import CompleteOrder from './src/components/CompleteOrder';
-import MyOrders from './src/components/MyOrders';
-
-// store.subscribe(() => console.warn(store.getState("basket")))
+import store from './src/modules/store'
+import Basket from './src/components/Basket'
+import CompleteOrder from './src/components/CompleteOrder'
+import MyOrders from './src/components/MyOrders'
 
 export default class App extends Component {
 
@@ -33,7 +31,7 @@ export default class App extends Component {
         <RootNavigator />
       </View>
       </Provider>
-    );
+    )
   }
 }
 
@@ -81,10 +79,10 @@ const RootNavigator =
 		{
 			headerMode: 'none'
 		}
-	);
+	)
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   }
-});
+})

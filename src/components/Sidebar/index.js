@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Text, View, TouchableOpacity } from 'react-native'
 import { connect } from 'react-redux'
+
 import styles from './sidebar.style'
 
 class Sidebar extends Component {

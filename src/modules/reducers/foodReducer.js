@@ -36,7 +36,7 @@ export default (state = initialState, action) => {
                     quantity: item.quantity - action.payload.quantity
                 } 
               }
-              return item;
+              return item
             })
         }
         default:

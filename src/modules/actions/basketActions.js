@@ -19,7 +19,15 @@ function clearBasket() {
     }
 }
 
-function addOrder(items, idCustomer, totalSum) {
+function updateCouponUsage(code) {
+    return new Promise((resolve, reject) => {
+        api.put('/coupons/usageIncrement', {code})
+        .then(() => resolve())
+        .catch(err => reject(err))
+    })
+}
+
+function addOrder(items, idCustomer, totalSum, coupon) {
     const orderNo = (Date.now() + "").slice(-8)
 
     return dispatch => {
@@ -30,6 +38,10 @@ function addOrder(items, idCustomer, totalSum) {
                 .then(() => {
                     api.put('/orderPayments/edit', {id: res.lastId, price: totalSum})
                     .then(() => {
+                        if (coupon) {
+                            updateCouponUsage(coupon)
+                            .catch(err => reject(err))
+                        }
                         dispatch(clearBasket())
                         resolve(orderNo)
                         const data = {
@@ -38,7 +50,7 @@ function addOrder(items, idCustomer, totalSum) {
                             contents: {"en": `New order with ID #${orderNo} is waiting for review`}
                         }
                         api.post('https://onesignal.com/api/v1/notifications', data)
-                        .catch(err => console.warn(err))
+                        .catch(err => reject(err))
                     })
                     .catch(err => reject(err))
                 })

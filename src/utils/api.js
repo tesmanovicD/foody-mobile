@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const instance = axios.create({
-    baseURL: 'http://192.168.1.5:5000',
+    baseURL: 'https://sheltered-coast-98280.herokuapp.com',
     timeout: 60000
 })
 axios.defaults.headers.post['Authorization'] = 'Basic NjEyMzZmYzItNzgyZS00MGJhLTkxNDUtMjBkZWI5MWI5MTc1';

@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Text, View, TouchableOpacity, TextInput } from 'react-native'
+import { Text, View, TouchableOpacity, TextInput, ToastAndroid } from 'react-native'
 import { connect } from 'react-redux'
 
 import styles from './basket.style'
 import actions from '../../modules/actions'
 import Header from '../Header'
-import BasketItem from './BasketItem';
+import BasketItem from './BasketItem'
 
 class Basket extends Component {
 
@@ -25,29 +25,29 @@ class Basket extends Component {
 
 	verifyCoupon = () => {
 		if (this.state.coupon.length < 1) {
-			console.warn("You must provide discount code")
+			ToastAndroid.show('You must provide discount code', ToastAndroid.SHORT)
 			return
 		} else if (this.props.basket.usedCoupon === true) {
-			console.warn("You already used coupon discount")
+			ToastAndroid.show('You already used coupon discount', ToastAndroid.SHORT)
 			return
 		} else if (this.props.basket.products.length === 0) {
-			console.warn("You must add items to basket")
+			ToastAndroid.show('You must add items to basket', ToastAndroid.SHORT)
 			return
 		}
 
 		this.props.dispatch(actions.basket.verifyCoupon(this.state.coupon))
-		.then(() => this.setState({ usedCoupon: true }))
-		.catch(err => console.warn(err))
+		.then(() => this.setState({ usedCoupon: true }))	
+		.catch(err => ToastAndroid.show(err.data, ToastAndroid.SHORT))
 	}
 
 	completeOrder = () => {
 		if (!this.props.basket.products.length) {
-			return console.warn("You must add items to basket")
+			return ToastAndroid.show('You must add items to basket', ToastAndroid.SHORT)
 		}
 
 		const basket = this.props.basket
 
-		this.props.dispatch(actions.basket.addOrder(basket.products, this.props.activeUser.id, basket.totalSum))
+		this.props.dispatch(actions.basket.addOrder(basket.products, this.props.activeUser.id, basket.totalSum, this.state.coupon))
 		.then((orderNo) => {
 			this.props.navigation.navigate('completeOrder', {orderNo})
 		})

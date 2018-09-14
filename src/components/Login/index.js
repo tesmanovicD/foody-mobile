@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Text, TextInput, View, Image, KeyboardAvoidingView, TouchableOpacity, Platform } from 'react-native'
+import { Text, TextInput, View, Image, KeyboardAvoidingView, TouchableOpacity, Platform, ToastAndroid } from 'react-native'
+
 import styles from './login.style'
 import actions from '../../modules/actions'
 
@@ -17,12 +18,12 @@ class Login extends Component {
 
 	authenticateUser = () => {
 		
-		const { email, password } =this.state;
+		const { email, password } =this.state
 		this.props.dispatch(actions.user.authenticateUser(email, password))
 		.then(() => {
 			this.props.navigation.navigate('home')
 		})
-		.catch(err => console.warn(err.data))
+		.catch(err => ToastAndroid.show(err.data, ToastAndroid.SHORT))
 	}
 
 	render() {
