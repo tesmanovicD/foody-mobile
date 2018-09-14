@@ -7,6 +7,7 @@ import OneSignal from 'react-native-onesignal'
 import styles from './home.style'
 import actions from '../../modules/actions/index'
 import Header from '../Header'
+import { apiBase } from '../../config'
 
 class Home extends Component {
   static navigationOptions = {
@@ -36,14 +37,6 @@ class Home extends Component {
   openLeftMenu = () => this.props.navigation.openDrawer()
 
   render() {
-    const list = [
-        {
-          id: 0,
-          name: 'Snacks',
-          avatar_url: 'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-          subtitle: 'Vice President'
-        }
-    ]
 
     return (
       <View style={styles.container}>
@@ -57,7 +50,7 @@ class Home extends Component {
 					{this.props.categories.map(cat => (
 						<ListItem
 							roundAvatar
-							avatar={{uri:`https://sheltered-coast-98280.herokuapp.com/uploads/category/${cat.image}`}}
+							avatar={{uri:`${apiBase}/uploads/category/${cat.image}`}}
 							key={cat.id}
 							title={cat.name}
 							onPress={() => this.openMenuCategories(cat.id, cat.name)}

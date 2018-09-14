@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 
 import styles from './items.style'
 import actions from '../../../modules/actions'
+import { apiBase } from '../../../config';
 
 class Items extends Component {
 
@@ -38,7 +39,7 @@ class Items extends Component {
         <View style={styles.container}>
             <Image
                 style={{width: 90, height: 60, alignSelf: 'center', borderRadius: 20}}
-                source={{uri: `https://sheltered-coast-98280.herokuapp.com/uploads/food/${this.props.item.image}`}}
+                source={{uri: `${apiBase}/uploads/food/${this.props.item.image}`}}
                 resizeMode="stretch" 
             />
             <View style={styles.test}>
@@ -59,7 +60,7 @@ class Items extends Component {
                     <View style={{height: 150}}>
                         <Image
                             style={{flex:1, position: 'relative'}}
-                            source={{uri: `https://sheltered-coast-98280.herokuapp.com/uploads/food/${this.props.item.image}`}}
+                            source={{uri: `${apiBase}/uploads/food/${this.props.item.image}`}}
                             resizeMode="stretch"
                         />
                         <Text style={[styles.itemPrice, {flex: 0.5, position: 'absolute', 'top': 20}]}>$ {this.props.item.price.toFixed(2)}</Text>
