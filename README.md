@@ -1,4 +1,4 @@
-## Multiplatform food ordering system - customer part (ReactNative based application)
+## Multiplatform food ordering system - customer part
 See [foody-web](https://github.com/tesmanovicD/foody-web) for employee part of this multiplatform project.
 
 ## Mobile native part of the application
